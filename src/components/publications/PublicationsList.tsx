@@ -17,6 +17,82 @@ import { cn } from '@/lib/utils';
 import { useMessages } from '@/lib/i18n/useMessages';
 import FormattedBibTeXText from './FormattedBibTeXText';
 
+// ==========================================
+// 新增的 BibTeX 自动化格式与清洗函数
+// ==========================================
+function formatAndCleanBibtex(pub: any): string {
+    if (!pub || !pub.bibtex) return '';
+
+    // 1. 定义你期望的完美展示顺序（根据学术规范，剔除了 abstract）
+    const desiredOrder = [
+        'author',
+        'title',
+        'journal',
+        'booktitle',
+        'volume',
+        'number',
+        'pages',
+        'year',
+	'month',
+        'publisher',
+        'doi'
+    ];
+
+    try {
+        let raw = pub.bibtex.trim();
+        
+        // 2. 提取头部 (例如: @article{Liu2026,)，兼容中间有空格的情况
+        const headerMatch = raw.match(/^@[a-zA-Z]+\s*\{[^,]+,/);
+        if (!headerMatch) return raw; 
+        
+        const header = headerMatch[0];
+        
+        // 3. 剥离头部和尾部的 }，只处理中间纯粹的字段内容
+        let fieldsStr = raw.substring(header.length).replace(/}\s*$/, '').trim();
+        
+        // 4. 更强大的正则：不再依赖换行符，精准锁定 key = value
+        const fieldRegex = /([a-zA-Z0-9_:-]+)\s*=\s*(\{[\s\S]*?\}|"[^"]*"|[^,}]+)/g;
+        const fields: Record<string, string> = {};
+        let match;
+        
+        while ((match = fieldRegex.exec(fieldsStr)) !== null) {
+            const key = match[1].trim().toLowerCase();
+            let value = match[2].trim();
+            
+            // 清理末尾可能多余的逗号
+            if (value.endsWith(',')) {
+                value = value.slice(0, -1).trim();
+            }
+            
+            // 彻底过滤掉摘要
+            if (key !== 'abstract') {
+                fields[key] = value;
+            }
+        }
+
+        // 5. 开始组装！严格按照 desiredOrder 排序，并自动对齐等号
+        const orderedLines: string[] = [];
+        
+        desiredOrder.forEach(key => {
+            if (fields[key]) {
+                orderedLines.push(`  ${key.padEnd(12)} = ${fields[key]}`);
+                delete fields[key]; // 放入后从字典中剔除
+            }
+        });
+
+        // 剩下未在 desiredOrder 里定义的小众字段，平铺加在最后
+        Object.keys(fields).forEach(key => {
+            orderedLines.push(`  ${key.padEnd(12)} = ${fields[key]}`);
+        });
+
+        // 6. 完美拼接头部、字段和尾部的大括号
+        return `${header}\n${orderedLines.join(',\n')}\n}`;
+    } catch (e) {
+        // 发生任何解析异常时，安全降级
+        return pub.bibtex;
+    }
+}
+
 interface PublicationsListProps {
     config: PublicationPageConfig;
     publications: Publication[];
@@ -76,7 +152,6 @@ export default function PublicationsList({ config, publications, embedded = fals
 
             {/* Search and Filter Controls */}
             <div className="mb-8 space-y-4">
-                {/* ... (keep existing controls) ... */}
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="relative flex-grow">
                         <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
@@ -316,13 +391,14 @@ export default function PublicationsList({ config, publications, embedded = fals
                                                 className="overflow-hidden mt-4"
                                             >
                                                 <div className="relative bg-neutral-50 dark:bg-neutral-800 rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+                                                    {/* 这里调用格式化函数 */}
                                                     <pre className="text-xs text-neutral-600 dark:text-neutral-500 overflow-x-auto whitespace-pre-wrap font-mono">
-                                                        {pub.bibtex}
+                                                        {formatAndCleanBibtex(pub)}
                                                     </pre>
                                                     <button
                                                         onClick={() => {
-                                                            navigator.clipboard.writeText(pub.bibtex || '');
-                                                            // Optional: Show copied feedback
+                                                            // 点击复制时，同样调用格式化函数
+                                                            navigator.clipboard.writeText(formatAndCleanBibtex(pub));
                                                         }}
                                                         className="absolute top-2 right-2 p-1.5 rounded-md bg-white dark:bg-neutral-700 text-neutral-500 hover:text-accent shadow-sm border border-neutral-200 dark:border-neutral-600 transition-colors"
                                                         title={messages.common.copyToClipboard}
