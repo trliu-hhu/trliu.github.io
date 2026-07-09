@@ -6,13 +6,13 @@ last_updated = "2026年7月4日"
 [author]
 name = "刘天润"
 title = "讲师"
-institution = "河海大学"
+institution = "河海大学，人工智能与自动化学院"
 
 [social]
 location = "城市，国家"
 location_details = [
-  "理科楼 123 室，",
-  "大学路，城市，国家"
+  "22号楼427室",
+  "河海大学常州校区"
 ]
 
 [[navigation]]
@@ -40,7 +40,7 @@ target = "awards"
 href = "/awards"
 
 [[navigation]]
-title = "服务"
+title = "项目"
 type = "page"
 target = "services"
 href = "/services"
