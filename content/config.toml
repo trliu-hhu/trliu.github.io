@@ -44,31 +44,38 @@ target = "about"
 href = "/"
 
 [[navigation]]
-title = "论文"
+title = "发表论文"
 type = "page"
 target = "publications"
 href = "/publications"
 
 [[navigation]]
-title = "教学"
+title = "科研项目"
 type = "page"
-target = "teaching"
-href = "/teaching"
+target = "projects"
+href = "/projects"
 
 [[navigation]]
-title = "奖项"
+title = "奖励荣誉"
 type = "page"
 target = "awards"
 href = "/awards"
 
 [[navigation]]
-title = "项目"
+title = "学术兼职"
 type = "page"
 target = "services"
 href = "/services"
 
 [[navigation]]
-title = "简历"
+title = "教学培养"
 type = "page"
-target = "cv"
-href = "/cv"
+target = "teaching"
+href = "/teaching"
+
+
+# [[navigation]]
+# title = "简历"
+# type = "page"
+# target = "cv"
+# href = "/cv"
