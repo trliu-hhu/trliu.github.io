@@ -1,30 +1,3 @@
-[site]
-title = "刘天润"
-description = "河海大学讲师"
-favicon = "/favicon.svg"
-last_updated = "November 18, 2025"
-
-[author]
-name = "Jiale Liu"
-title = "PhD Student"
-institution = "University of Example"
-avatar = "/bio.jpg"
-
-[social]
-# Contact information (leave blank or delete to hide)
-
-email = "john.doe@example.com"
-location = "City, Country"
-location_url = "https://maps.google.com"
-location_details = [
-  "Room 123, Science Building,",
-  "University Avenue, City, Country"
-]
-google_scholar = "https://scholar.google.com"
-orcid = "https://orcid.org"
-github = "https://github.com"
-linkedin = "https://linkedin.com"
-
 [features]
 # Show a like button on the about page
 enable_likes = true
@@ -40,38 +13,60 @@ default_locale = "zh"
 [i18n.labels]
 zh = "中文"
 
+[site]
+title = "刘天润"
+description = "个人主页。"
+last_updated = "2026年7月4日"
+
+[author]
+name = "刘天润"
+title = "讲师"
+institution = "河海大学，人工智能与自动化学院"
+
+[social]
+email = "trliu@hhu.edu.cn"
+location = "城市，国家"
+location_url = "https://maps.google.com"
+location_details = [
+  "22号楼427室",
+  "河海大学常州校区"
+]
+google_scholar = "https://scholar.google.com/citations?user=MnvjhpcAAAAJ&hl=zh-CN"
+orcid = "https://orcid.org/0000-0002-2626-8617"
+
+
 [[navigation]]
-title = "About"
+title = "关于我"
 type = "page"
 target = "about"
 href = "/"
 
 [[navigation]]
-title = "Publications"
+title = "论文"
 type = "page"
 target = "publications"
 href = "/publications"
 
 [[navigation]]
-title = "Teaching"
+title = "教学"
 type = "page"
 target = "teaching"
 href = "/teaching"
 
 [[navigation]]
-title = "Awards"
+title = "奖项"
 type = "page"
 target = "awards"
 href = "/awards"
 
 [[navigation]]
-title = "Services"
+title = "项目"
 type = "page"
 target = "services"
 href = "/services"
 
 [[navigation]]
-title = "CV"
+title = "简历"
 type = "page"
 target = "cv"
 href = "/cv"
