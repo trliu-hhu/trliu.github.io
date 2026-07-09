@@ -20,7 +20,7 @@ import FormattedBibTeXText from './FormattedBibTeXText';
 // ==========================================
 // 新增的 BibTeX 自动化格式与清洗函数
 // ==========================================
-function formatAndCleanBibtex(pub: publication): string {
+function formatAndCleanBibtex(pub: Publication): string {
     if (!pub || !pub.bibtex) return '';
 
     // 1. 定义你期望的完美展示顺序（根据学术规范，剔除了 abstract）
