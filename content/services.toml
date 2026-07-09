@@ -13,21 +13,17 @@ content = "4th IEEE International Conference on Pattern Recognition, Machine Vis
 date = "2026"
 
 [[items]]
-title = "权威期刊审稿人"
+title = "期刊与会议审稿人"
 content = """
-IEEE/CAA Journal of Automatica Sinica、
+担任 IEEE/CAA Journal of Automatica Sinica、
 IEEE Transactions on Systems, Man, and Cybernetics: Systems、
 IEEE Transactions on Industrial Informatics、
 IEEE Transactions on Neural Networks and Learning Systems、
 IEEE Transactions on Intelligent Vehicles、
 Neural Networks、
-Nonlinear Dynamics
-"""
-
-[[items]]
-title = "顶级会议审稿人"
-content = """
-IEEE Conference on Decision and Control (CDC)、
+Nonlinear Dynamics 等十余本权威期刊审稿人；
+担任 IEEE Conference on Decision and Control (CDC)、
 American Control Conference (ACC)、
-European Control Conference (ECC)
+European Control Conference (ECC) 等顶级会议审稿人。
 """
+image = "/review.png"
